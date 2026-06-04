@@ -1,12 +1,5 @@
-import { isMongoConnected } from "../config/database.js";
+/* jshint esversion: 6 */
 import { Task } from "../models/Task.js";
-import {
-  createMemoryTask,
-  deleteMemoryTask,
-  findMemoryTaskById,
-  listMemoryTasks,
-  updateMemoryTask
-} from "../store/memoryStore.js";
 
 function buildQuery({ userId, search = "", status = "all" }) {
   const query = { userId };
@@ -26,10 +19,6 @@ function buildQuery({ userId, search = "", status = "all" }) {
 }
 
 export async function listTasks({ userId, search = "", status = "all", page = 1, limit = 8 }) {
-  if (!isMongoConnected()) {
-    return listMemoryTasks({ userId, search, status, page, limit });
-  }
-
   const safeLimit = Math.max(1, Number(limit) || 8);
   const safePage = Math.max(1, Number(page) || 1);
   const query = buildQuery({ userId, search, status });
@@ -68,10 +57,6 @@ export async function listTasks({ userId, search = "", status = "all", page = 1,
 }
 
 export async function createTask({ title, description = "", status = "pending", userId }) {
-  if (!isMongoConnected()) {
-    return createMemoryTask({ title, description, status, userId });
-  }
-
   return Task.create({
     title,
     description,
@@ -81,26 +66,14 @@ export async function createTask({ title, description = "", status = "pending", 
 }
 
 export async function getTaskById(id) {
-  if (!isMongoConnected()) {
-    return findMemoryTaskById(id);
-  }
-
   return Task.findById(id);
 }
 
 export async function updateTask(id, updates) {
-  if (!isMongoConnected()) {
-    return updateMemoryTask(id, updates);
-  }
-
   return Task.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
 }
 
 export async function removeTask(id) {
-  if (!isMongoConnected()) {
-    return deleteMemoryTask(id);
-  }
-
   const deleted = await Task.findByIdAndDelete(id);
   return Boolean(deleted);
 }

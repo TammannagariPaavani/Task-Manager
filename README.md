@@ -59,7 +59,14 @@ MONGODB_URI=mongodb://127.0.0.1:27017/task_manager
 CLIENT_ORIGIN=http://localhost:5173
 ```
 
-If you use MongoDB Compass, paste the same MongoDB connection string you use in Compass into `MONGODB_URI`. Compass is the GUI client; the backend still connects to a running MongoDB server or Atlas cluster.
+If you use MongoDB Compass, copy the same connection string from Compass into `MONGODB_URI`. Compass is only the GUI client, so the backend still needs a running MongoDB server or Atlas cluster.
+
+### MongoDB Compass setup
+
+1. Open MongoDB Compass.
+2. Copy the connection string you use there.
+3. Paste it into `server/.env` as `MONGODB_URI`.
+4. Make sure the database server is reachable before starting the backend.
 
 Create `client/.env`:
 
@@ -81,10 +88,6 @@ cd client
 npm run dev
 ```
 
-## Demo Mode
-
-If MongoDB is not available, the backend automatically falls back to an in-memory demo store so the app can still be tested locally. For real persistence, set `MONGODB_URI` and run MongoDB normally.
-
 ## API Endpoints
 
 ### Auth
@@ -105,7 +108,7 @@ If MongoDB is not available, the backend automatically falls back to an in-memor
 
 - GitHub repository link
 - README with setup instructions
-- Demo video if you want to showcase the UI
+- Screenshots or demo video if your teacher asks for visual proof
 
 ## Submission Focus
 

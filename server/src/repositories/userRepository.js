@@ -1,34 +1,19 @@
-import { isMongoConnected } from "../config/database.js";
 import { User } from "../models/User.js";
-import {
-  createMemoryUser,
-  findMemoryUserByEmail,
-  findMemoryUserById,
-  normalizeEmail
-} from "../store/memoryStore.js";
+
+function normalizeEmail(email) {
+  return String(email || "").trim().toLowerCase();
+}
 
 export async function getUserByEmail(email) {
-  if (isMongoConnected()) {
-    return User.findOne({ email: normalizeEmail(email) });
-  }
-
-  return findMemoryUserByEmail(email);
+  return User.findOne({ email: normalizeEmail(email) });
 }
 
 export async function getUserById(id) {
-  if (isMongoConnected()) {
-    return User.findById(id);
-  }
-
-  return findMemoryUserById(id);
+  return User.findById(id);
 }
 
 export async function createUser({ name, email, password }) {
-  if (isMongoConnected()) {
-    return User.create({ name, email: normalizeEmail(email), password });
-  }
-
-  return createMemoryUser({ name, email, password });
+  return User.create({ name, email: normalizeEmail(email), password });
 }
 
 export function toPublicUser(user) {
@@ -42,4 +27,3 @@ export function toPublicUser(user) {
     email: user.email
   };
 }
-
