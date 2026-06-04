@@ -96,34 +96,41 @@ export default function DashboardPage() {
     await refreshTasks();
   };
 
+  const displayName = user?.name || "there";
+
   return (
     <main className="dashboard-shell">
-      <header className="topbar card">
-        <div>
-          <p className="eyebrow">Task dashboard</p>
-          <h1>Welcome, {user?.name}</h1>
-          <p className="muted">
-            {pagination.total} tasks total, {pagination.completedCount} completed,{" "}
-            {pagination.pendingCount} pending
-          </p>
+      <header className="dashboard-header">
+        <div className="dashboard-title">
+          <p className="eyebrow">Task manager</p>
+          <h1>Welcome back, {displayName}</h1>
+          <p>Plan, track, and complete your daily work from one focused dashboard.</p>
         </div>
-        <button className="ghost-button" onClick={logout}>
-          Logout
-        </button>
+
+        <div className="profile-panel">
+          <div className="avatar">{displayName.charAt(0).toUpperCase()}</div>
+          <div>
+            <strong>{displayName}</strong>
+            <span>{user?.email}</span>
+          </div>
+          <button className="ghost-button compact" onClick={logout}>
+            Logout
+          </button>
+        </div>
       </header>
 
       <section className="stats-grid">
-        <article className="stat-card card">
+        <article className="stat-card total">
           <span>Total tasks</span>
-          <strong>{summary.total}</strong>
+          <strong>{pagination.total}</strong>
         </article>
-        <article className="stat-card card">
+        <article className="stat-card completed">
           <span>Completed</span>
-          <strong>{summary.completed}</strong>
+          <strong>{pagination.completedCount}</strong>
         </article>
-        <article className="stat-card card">
+        <article className="stat-card pending">
           <span>Pending</span>
-          <strong>{summary.pending}</strong>
+          <strong>{pagination.pendingCount}</strong>
         </article>
       </section>
 
@@ -149,15 +156,16 @@ export default function DashboardPage() {
         </div>
 
         <div className="dashboard-column">
-          <div className="card section-heading">
+          <div className="section-heading">
             <div>
               <p className="eyebrow">Your tasks</p>
               <h2>Latest work items</h2>
             </div>
+            <span className="task-count">{pagination.total} total</span>
           </div>
 
-          {error ? <div className="card error-card">{error}</div> : null}
-          {loading ? <div className="card loading-card">Loading tasks...</div> : null}
+          {error ? <div className="error-card">{error}</div> : null}
+          {loading ? <div className="loading-card">Loading tasks...</div> : null}
           {!loading ? (
             <TaskList
               tasks={tasks}

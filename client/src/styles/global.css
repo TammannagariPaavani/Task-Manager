@@ -1,18 +1,19 @@
 :root {
   color-scheme: dark;
-  --bg: #07111d;
-  --bg-soft: #0c1a2b;
-  --panel: rgba(10, 21, 36, 0.8);
-  --panel-strong: rgba(13, 27, 46, 0.95);
-  --border: rgba(154, 190, 255, 0.14);
-  --text: #ecf5ff;
-  --muted: #8fa7c4;
-  --accent: #4dd6a7;
-  --accent-strong: #2dbe8b;
-  --warning: #ffb35c;
-  --danger: #ff7676;
-  --shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
-  --radius: 24px;
+  --bg: #0b0f14;
+  --bg-soft: #101820;
+  --panel: #111923;
+  --panel-strong: #172333;
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #f4f7fb;
+  --muted: #9fb0c3;
+  --accent: #3ddc97;
+  --accent-strong: #24b77a;
+  --blue: #60a5fa;
+  --warning: #f5b84b;
+  --danger: #ff6b6b;
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
+  --radius: 8px;
   font-family: Inter, "Segoe UI", system-ui, sans-serif;
   background:
     radial-gradient(circle at top left, rgba(77, 214, 167, 0.18), transparent 26%),
@@ -36,9 +37,8 @@ body {
   min-height: 100vh;
   color: var(--text);
   background:
-    radial-gradient(circle at 20% 20%, rgba(77, 214, 167, 0.13), transparent 18%),
-    radial-gradient(circle at 80% 0%, rgba(255, 179, 92, 0.13), transparent 16%),
-    linear-gradient(180deg, #04111c, #060c14 62%, #050b12);
+    linear-gradient(135deg, rgba(61, 220, 151, 0.08), transparent 28%),
+    linear-gradient(180deg, #0b0f14, #0d1219 58%, #090d12);
 }
 
 body::before {
@@ -84,7 +84,6 @@ button {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
 }
 
 .card {
@@ -108,8 +107,8 @@ button {
 .ghost-button,
 .danger-button {
   border: 0;
-  border-radius: 999px;
-  padding: 0.8rem 1.1rem;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
   transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
   font-weight: 700;
 }
@@ -126,9 +125,13 @@ button {
 }
 
 .ghost-button {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ghost-button.compact {
+  padding: 0.65rem 0.9rem;
 }
 
 .danger-button {
@@ -165,7 +168,7 @@ button {
 .field textarea,
 .field select {
   width: 100%;
-  border-radius: 18px;
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
@@ -235,27 +238,99 @@ button {
 
 .dashboard-shell {
   min-height: 100vh;
-  padding: 1.25rem;
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 2rem;
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
-.topbar {
+.dashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem;
+  padding: 1.25rem 0 0.5rem;
 }
 
-.topbar h1 {
+.dashboard-title h1 {
   margin: 0;
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.dashboard-title p:last-child {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+}
+
+.profile-panel {
+  min-width: 310px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.avatar {
+  width: 42px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--blue));
+  color: #07110d;
+  font-weight: 800;
+}
+
+.profile-panel strong,
+.profile-panel span {
+  display: block;
+}
+
+.profile-panel span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  word-break: break-word;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.stat-card {
+  padding: 1.15rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+}
+
+.stat-card.total::before {
+  background: var(--blue);
+}
+
+.stat-card.completed::before {
+  background: var(--accent);
+}
+
+.stat-card.pending::before {
+  background: var(--warning);
 }
 
 .stat-card span {
@@ -270,7 +345,7 @@ button {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+  grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
   gap: 1rem;
   align-items: start;
 }
@@ -290,6 +365,23 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.section-heading {
+  padding: 0.25rem 0;
+}
+
+.section-heading h2 {
+  margin: 0;
+}
+
+.task-count {
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
 }
 
 .task-grid {
@@ -326,7 +418,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: 6px;
   padding: 0.32rem 0.65rem;
   text-transform: capitalize;
   font-size: 0.75rem;
@@ -359,7 +451,24 @@ button {
 .empty-state,
 .error-card,
 .loading-card {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   text-align: center;
+}
+
+.error-card {
+  color: #ffd0d0;
+  background: rgba(255, 107, 107, 0.12);
+}
+
+.empty-state h3 {
+  margin: 0 0 0.35rem;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--muted);
 }
 
 @keyframes floatIn {
@@ -379,6 +488,11 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .dashboard-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .stats-grid {
     grid-template-columns: 1fr;
   }
@@ -390,13 +504,22 @@ button {
     padding: 1rem;
   }
 
-  .topbar,
+  .dashboard-header,
   .card-title-row,
   .task-card-header,
   .task-actions,
   .pagination {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .profile-panel {
+    min-width: 0;
+    grid-template-columns: auto 1fr;
+  }
+
+  .profile-panel .ghost-button {
+    grid-column: 1 / -1;
   }
 
   .filters {
@@ -407,4 +530,3 @@ button {
     grid-column: auto;
   }
 }
-
