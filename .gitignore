@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.env
+.env.local
+.DS_Store
+*.log
+server/node_modules
+client/node_modules
+server/.env
+client/.env
+screenshots
