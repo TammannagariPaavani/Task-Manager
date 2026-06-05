@@ -97,6 +97,9 @@ export default function DashboardPage() {
   };
 
   const displayName = user?.name || "there";
+  const completionRate = pagination.total
+    ? Math.round((pagination.completedCount / pagination.total) * 100)
+    : 0;
 
   return (
     <main className="dashboard-shell">
@@ -104,7 +107,7 @@ export default function DashboardPage() {
         <div className="dashboard-title">
           <p className="eyebrow">Task manager</p>
           <h1>Welcome back, {displayName}</h1>
-          <p>Plan, track, and complete your daily work from one focused dashboard.</p>
+          <p>Plan your work, move tasks forward, and keep every update in one clean view.</p>
         </div>
 
         <div className="profile-panel">
@@ -123,15 +126,28 @@ export default function DashboardPage() {
         <article className="stat-card total">
           <span>Total tasks</span>
           <strong>{pagination.total}</strong>
+          <small>Across your workspace</small>
         </article>
         <article className="stat-card completed">
           <span>Completed</span>
           <strong>{pagination.completedCount}</strong>
+          <small>Finished items</small>
         </article>
         <article className="stat-card pending">
           <span>Pending</span>
           <strong>{pagination.pendingCount}</strong>
+          <small>Still moving</small>
         </article>
+      </section>
+
+      <section className="progress-panel">
+        <div>
+          <p className="eyebrow">Progress</p>
+          <h2>{completionRate}% complete</h2>
+        </div>
+        <div className="progress-track" aria-label={`Completion ${completionRate}%`}>
+          <span style={{ width: `${completionRate}%` }}></span>
+        </div>
       </section>
 
       <section className="dashboard-grid">

@@ -38,11 +38,32 @@ export default function LoginPage() {
     <div className="auth-shell">
       <section className="auth-panel hero-panel">
         <p className="eyebrow">Task Manager</p>
-        <h1>Keep every task clear, visible, and under control.</h1>
+        <h1>Turn scattered work into a clear daily plan.</h1>
         <p>
-          A focused MERN dashboard for logging in, managing tasks, and staying organized with
-          search, filters, and fast CRUD operations.
+          A MERN task workspace with secure login, quick task capture, search, filters, and a
+          dashboard that keeps progress easy to read.
         </p>
+        <div className="hero-preview" aria-hidden="true">
+          <div className="preview-toolbar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div className="preview-list">
+            <div className="preview-item active">
+              <strong>Design dashboard</strong>
+              <small>Completed</small>
+            </div>
+            <div className="preview-item">
+              <strong>Connect MongoDB</strong>
+              <small>In progress</small>
+            </div>
+            <div className="preview-item accent">
+              <strong>Record demo</strong>
+              <small>Pending</small>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="auth-panel form-panel card">
@@ -82,4 +103,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

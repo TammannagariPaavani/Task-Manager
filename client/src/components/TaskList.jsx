@@ -25,7 +25,7 @@ export default function TaskList({ tasks, onEdit, onDelete, onToggle }) {
               <h3>{task.title}</h3>
             </div>
             <button className="ghost-button" onClick={() => onToggle(task)}>
-              Toggle
+              {task.status === "completed" ? "Mark pending" : "Mark done"}
             </button>
           </div>
 
@@ -49,4 +49,3 @@ export default function TaskList({ tasks, onEdit, onDelete, onToggle }) {
     </div>
   );
 }
-

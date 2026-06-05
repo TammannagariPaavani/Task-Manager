@@ -43,11 +43,32 @@ export default function RegisterPage() {
     <div className="auth-shell">
       <section className="auth-panel hero-panel">
         <p className="eyebrow">Task Manager</p>
-        <h1>Build a cleaner workflow from day one.</h1>
+        <h1>Start with a workspace that feels organized.</h1>
         <p>
-          Register once, then manage every task from a responsive dashboard designed for quick
-          daily use.
+          Register once, then create tasks, update priorities, and track completion from a
+          responsive dashboard built for everyday use.
         </p>
+        <div className="hero-preview" aria-hidden="true">
+          <div className="preview-toolbar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div className="preview-list">
+            <div className="preview-item active">
+              <strong>Create account</strong>
+              <small>Secure auth</small>
+            </div>
+            <div className="preview-item">
+              <strong>Add tasks</strong>
+              <small>CRUD ready</small>
+            </div>
+            <div className="preview-item accent">
+              <strong>Track status</strong>
+              <small>Pending or done</small>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="auth-panel form-panel card">
@@ -91,4 +112,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

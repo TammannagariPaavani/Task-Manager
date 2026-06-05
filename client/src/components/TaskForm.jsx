@@ -68,7 +68,7 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }) {
       <div className="card-title-row">
         <div>
           <p className="eyebrow">{editingTask ? "Update task" : "New task"}</p>
-          <h2>{editingTask ? "Edit task details" : "Capture a new task"}</h2>
+          <h2>{editingTask ? "Edit task details" : "Add a task"}</h2>
         </div>
         {editingTask ? (
           <button type="button" className="ghost-button" onClick={onCancel}>
@@ -83,7 +83,7 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }) {
           name="title"
           value={formData.title}
           onChange={handleChange}
-          placeholder="Plan sprint review"
+          placeholder="Prepare internship demo"
         />
         {errors.title ? <small className="field-error">{errors.title}</small> : null}
       </label>
@@ -95,7 +95,7 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }) {
           rows="4"
           value={formData.description}
           onChange={handleChange}
-          placeholder="Add notes, context, or follow-up steps"
+          placeholder="Add short notes or context"
         />
       </label>
 
@@ -113,4 +113,3 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }) {
     </form>
   );
 }
-
