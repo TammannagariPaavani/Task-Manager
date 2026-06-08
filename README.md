@@ -1,6 +1,6 @@
 # Task Manager
 
-A full-stack task management application built for MERN stack internship evaluation.
+A full-stack task management application built for MERN .
 
 ## Overview
 
