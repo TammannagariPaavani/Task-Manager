@@ -17,7 +17,7 @@ This project provides a clean, responsive task workspace with:
 
 - Frontend: React, Vite
 - Backend: Node.js, Express.js
-- Database: MongoDB, Mongoose
+- Database: MongoDB
 - Auth: JSON Web Token
 
 ## Project Structure
