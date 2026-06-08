@@ -48,27 +48,6 @@ export default function RegisterPage() {
           Register once, then create tasks, update priorities, and track completion from a
           responsive dashboard built for everyday use.
         </p>
-        <div className="hero-preview" aria-hidden="true">
-          <div className="preview-toolbar">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div className="preview-list">
-            <div className="preview-item active">
-              <strong>Create account</strong>
-              <small>Secure auth</small>
-            </div>
-            <div className="preview-item">
-              <strong>Add tasks</strong>
-              <small>CRUD ready</small>
-            </div>
-            <div className="preview-item accent">
-              <strong>Track status</strong>
-              <small>Pending or done</small>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="auth-panel form-panel card">

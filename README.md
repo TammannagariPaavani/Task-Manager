@@ -1,44 +1,36 @@
-# Task Manager - MERN Stack Internship Assignment
+# Task Manager
 
-A full-stack task management app with:
+A full-stack task management application built for MERN stack internship evaluation.
+
+## Overview
+
+This project provides a clean, responsive task workspace with:
 
 - User registration and login
 - JWT authentication
-- Protected task routes
-- Create, update, delete, and view tasks
-- Mark tasks as completed or pending
+- Protected routes
+- Task creation, update, deletion, and status toggle
 - Search, filter, and pagination
-- Responsive UI built with React
+- Structured code with a modern React UI
 
 ## Tech Stack
 
-- MongoDB / Mongoose
-- Express.js
-- React.js
-- Node.js
+- Frontend: React, Vite
+- Backend: Node.js, Express.js
+- Database: MongoDB, Mongoose
+- Auth: JSON Web Token
 
 ## Project Structure
 
 ```text
 task manager/
-  server/
   client/
+  server/
 ```
-
-## Features
-
-- Secure auth with hashed passwords
-- Task CRUD with ownership checks
-- Search by title or description
-- Filter by status
-- Pagination for task lists
-- Clean responsive dashboard UI
 
 ## Setup
 
 ### 1. Install dependencies
-
-Run this in each app folder:
 
 ```bash
 cd server
@@ -55,18 +47,11 @@ Create `server/.env`:
 ```env
 PORT=4000
 JWT_SECRET=change-this-secret
-MONGODB_URI=mongodb://127.0.0.1:27017/task_manager
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/task_manager?retryWrites=true&w=majority
 CLIENT_ORIGIN=http://localhost:5173
 ```
 
-If you use MongoDB Compass, copy the same connection string from Compass into `MONGODB_URI`. Compass is only the GUI client, so the backend still needs a running MongoDB server or Atlas cluster.
-
-### MongoDB Compass setup
-
-1. Open MongoDB Compass.
-2. Copy the connection string you use there.
-3. Paste it into `server/.env` as `MONGODB_URI`.
-4. Make sure the database server is reachable before starting the backend.
+Use a reachable MongoDB connection string. If you use MongoDB Atlas, add your current IP in Network Access.
 
 Create `client/.env`:
 
@@ -74,14 +59,14 @@ Create `client/.env`:
 VITE_API_URL=http://localhost:4000/api
 ```
 
-### 3. Start the backend
+### 3. Start the apps
 
 ```bash
 cd server
 npm run dev
 ```
 
-### 4. Start the frontend
+In another terminal:
 
 ```bash
 cd client
@@ -108,16 +93,10 @@ npm run dev
 
 - GitHub repository link
 - README with setup instructions
-- Screenshots or demo video if your teacher asks for visual proof
+- Screenshots or demo video
 
-## Submission Focus
+## Notes
 
-This project is built to emphasize:
-
-- Fully functional application
-- Secure authentication
-- Smooth CRUD operations
-- Clean UI and structured code
-- Search and filter bonus
-- Pagination bonus
-- Deployment-ready env configuration
+- The application is intended to run against a real MongoDB database.
+- For Atlas, make sure your IP is whitelisted and the cluster is active.
+- The client expects the API to be available at `VITE_API_URL`.

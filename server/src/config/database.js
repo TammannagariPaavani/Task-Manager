@@ -9,7 +9,9 @@ export async function initializeDatabase() {
 
   try {
     await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 2500
+      family: 4,
+      serverSelectionTimeoutMS: 10000,
+      tls: true
     });
   } catch (error) {
     throw new Error(`MongoDB connection failed: ${error.message}`);

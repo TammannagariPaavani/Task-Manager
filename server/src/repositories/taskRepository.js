@@ -1,4 +1,3 @@
-/* jshint esversion: 6 */
 import { Task } from "../models/Task.js";
 
 function buildQuery({ userId, search = "", status = "all" }) {
@@ -22,32 +21,24 @@ export async function listTasks({ userId, search = "", status = "all", page = 1,
   const safeLimit = Math.max(1, Number(limit) || 8);
   const safePage = Math.max(1, Number(page) || 1);
   const query = buildQuery({ userId, search, status });
-  const total = await Task.countDocuments(query);
-  const totalPages = Math.max(1, Math.ceil(total / safeLimit));
+  const [filteredTotal, totalTaskCount, completedCount] = await Promise.all([
+    Task.countDocuments(query),
+    Task.countDocuments({ userId }),
+    Task.countDocuments({ userId, status: "completed" })
+  ]);
+  const totalPages = Math.max(1, Math.ceil(filteredTotal / safeLimit));
   const tasks = await Task.find(query)
     .sort({ createdAt: -1 })
     .skip((safePage - 1) * safeLimit)
     .limit(safeLimit)
     .lean();
-  const counts = await Task.aggregate([
-    { $match: buildQuery({ userId, search, status }) },
-    {
-      $group: {
-        _id: null,
-        completedCount: {
-          $sum: {
-            $cond: [{ $eq: ["$status", "completed"] }, 1, 0]
-          }
-        }
-      }
-    }
-  ]);
-  const completedCount = counts[0]?.completedCount || 0;
-  const pendingCount = total - completedCount;
+  const pendingCount = totalTaskCount - completedCount;
 
   return {
     tasks,
-    total,
+    total: filteredTotal,
+    filteredTotal,
+    totalTaskCount,
     page: safePage,
     limit: safeLimit,
     totalPages,

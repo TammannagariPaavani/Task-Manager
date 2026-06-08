@@ -8,6 +8,23 @@ import TaskList from "../components/TaskList.jsx";
 
 const PAGE_SIZE = 8;
 
+function buildPaginationState(data) {
+  const totalTaskCount = data.totalTaskCount ?? data.total;
+  const filteredTotal = data.filteredTotal ?? data.total;
+  const allTasksVisible = totalTaskCount === filteredTotal && filteredTotal === data.tasks.length;
+  const completedCount = allTasksVisible
+    ? data.tasks.filter((task) => task.status === "completed").length
+    : data.completedCount ?? 0;
+
+  return {
+    totalPages: data.totalPages,
+    total: totalTaskCount,
+    filteredTotal,
+    completedCount,
+    pendingCount: Math.max(0, totalTaskCount - completedCount)
+  };
+}
+
 export default function DashboardPage() {
   const { user, logout } = useAuth();
   const [tasks, setTasks] = useState([]);
@@ -19,6 +36,7 @@ export default function DashboardPage() {
   const [pagination, setPagination] = useState({
     totalPages: 1,
     total: 0,
+    filteredTotal: 0,
     completedCount: 0,
     pendingCount: 0
   });
@@ -36,12 +54,7 @@ export default function DashboardPage() {
           signal: controller.signal
         });
         setTasks(data.tasks);
-        setPagination({
-          totalPages: data.totalPages,
-          total: data.total,
-          completedCount: data.completedCount ?? 0,
-          pendingCount: data.pendingCount ?? 0
-        });
+        setPagination(buildPaginationState(data));
       } catch (err) {
         if (!controller.signal.aborted) {
           setError(err.response?.data?.message || "Unable to load tasks.");
@@ -62,12 +75,7 @@ export default function DashboardPage() {
       params: { search, status, page, limit: PAGE_SIZE }
     });
     setTasks(data.tasks);
-    setPagination({
-      totalPages: data.totalPages,
-      total: data.total,
-      completedCount: data.completedCount ?? 0,
-      pendingCount: data.pendingCount ?? 0
-    });
+    setPagination(buildPaginationState(data));
   };
 
   const handleCreateOrUpdate = async (payload) => {
@@ -103,7 +111,7 @@ export default function DashboardPage() {
 
   return (
     <main className="dashboard-shell">
-      <header className="dashboard-header">
+      <header className="dashboard-header dashboard-hero-card">
         <div className="dashboard-title">
           <p className="eyebrow">Task manager</p>
           <h1>Welcome back, {displayName}</h1>
@@ -124,16 +132,19 @@ export default function DashboardPage() {
 
       <section className="stats-grid">
         <article className="stat-card total">
+          <span className="stat-icon">01</span>
           <span>Total tasks</span>
           <strong>{pagination.total}</strong>
           <small>Across your workspace</small>
         </article>
         <article className="stat-card completed">
+          <span className="stat-icon">02</span>
           <span>Completed</span>
           <strong>{pagination.completedCount}</strong>
           <small>Finished items</small>
         </article>
         <article className="stat-card pending">
+          <span className="stat-icon">03</span>
           <span>Pending</span>
           <strong>{pagination.pendingCount}</strong>
           <small>Still moving</small>
@@ -177,7 +188,7 @@ export default function DashboardPage() {
               <p className="eyebrow">Your tasks</p>
               <h2>Latest work items</h2>
             </div>
-            <span className="task-count">{pagination.total} total</span>
+            <span className="task-count">{pagination.filteredTotal} shown</span>
           </div>
 
           {error ? <div className="error-card">{error}</div> : null}

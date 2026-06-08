@@ -83,7 +83,7 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }) {
           name="title"
           value={formData.title}
           onChange={handleChange}
-          placeholder="Prepare internship demo"
+          placeholder="Write task title"
         />
         {errors.title ? <small className="field-error">{errors.title}</small> : null}
       </label>
