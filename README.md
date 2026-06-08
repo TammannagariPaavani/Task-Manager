@@ -89,11 +89,6 @@ npm run dev
 - `PATCH /api/tasks/:id/toggle`
 - `DELETE /api/tasks/:id`
 
-## Deliverables
-
-- GitHub repository link
-- README with setup instructions
-- Screenshots or demo video
 
 ## Notes
 
